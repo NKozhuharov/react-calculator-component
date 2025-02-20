@@ -29,7 +29,13 @@ export default function CalculatorModal(props) {
     };
 
     const handleInputButtonClick = (event) => {
-        setCalculatorInputValue(calculatorInputValue + event.currentTarget.getAttribute("data-value"));
+        const value = event.currentTarget.getAttribute('data-value');
+
+        if (calculatorInputValue.includes('.') && value === '.') {
+            return;
+        }
+
+        setCalculatorInputValue(calculatorInputValue + value);
     };
 
     const handleClearButtonClick = () => {
