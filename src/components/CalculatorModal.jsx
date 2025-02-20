@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faArrowRight, faDivide, faEquals, faMinus, faMultiply, faPlus, faX} from '@fortawesome/free-solid-svg-icons'
-import { evaluate } from "mathjs";
+import {evaluate} from "mathjs";
 
 export default function CalculatorModal(props) {
     let [modalIsShown, setModalIsShown] = useState(props.showModal || true);
@@ -11,18 +11,17 @@ export default function CalculatorModal(props) {
     let [calculatorInputValue, setCalculatorInputValue] = useState('');
 
     function safeEval(expression) {
+        if (expression === '') {
+            return '';
+        }
+
         // Replace symbols with JavaScript compatible operators
         expression = expression.replace(/÷/g, '/').replace(/x/g, '*');
 
         // Evaluate the expression
         const result = evaluate(expression);
-        // If result is a number, return it
-        if (typeof result === 'number') {
-            return result;
-        } else {
-            alert('Invalid expression');
-            return null;
-        }
+
+        return parseFloat(result).toString();
     }
 
     const handleCloseCalculator = () => {
