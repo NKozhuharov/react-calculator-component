@@ -8,9 +8,16 @@ function App() {
     let [modalIsShown, setModalVisible] = useState(false);
     let [modalValue, setModalValue] = useState('');
 
+    const hideModal = () => {
+        setModalVisible(false);
+    };
+
     return (
         <>
-            <CalculatorModal isShown={modalIsShown} initialValue={modalValue} setModalValue={setModalValue} setModalVisible={setModalVisible}/>
+            {
+                modalIsShown &&
+                <CalculatorModal initialValue={modalValue} setModalValue={setModalValue} hideModal={hideModal}/>
+            }
             <h1>Calculator</h1>
             <div className="input-group">
                 <input type="text" className='form-control' placeholder='0.00' value={modalValue} onChange={(e) => setModalValue(e.target.value)}/>

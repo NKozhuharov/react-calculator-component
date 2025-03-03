@@ -3,7 +3,7 @@ import {faArrowLeft, faArrowRight, faDivide, faEquals, faMinus, faMultiply, faPl
 import {evaluate} from "mathjs";
 import {useEffect, useState} from "react";
 
-export default function CalculatorModal({isShown, initialValue, setModalValue, setModalVisible}) {
+export default function CalculatorModal({initialValue, setModalValue, hideModal}) {
     const mathSymbols = ['÷', 'x', '+', '-'];
 
     let [calculatorInputValue, setCalculatorInputValue] = useState(initialValue ? initialValue.toString() : '');
@@ -28,7 +28,7 @@ export default function CalculatorModal({isShown, initialValue, setModalValue, s
     }
 
     const handleCloseCalculator = () => {
-        setModalVisible(false);
+        hideModal();
     };
 
     const handleInputButtonClick = (event) => {
@@ -74,10 +74,10 @@ export default function CalculatorModal({isShown, initialValue, setModalValue, s
 
     const handleConfirmButtonClick = () => {
         setModalValue(safeEval(calculatorInputValue));
-        setModalVisible(false);
+        hideModal();
     }
 
-    return isShown ? (
+    return (
         <div className='modal' style={{display: 'block'}}>
             <div className="modal-dialog">
                 <div className="modal-content">
@@ -167,5 +167,5 @@ export default function CalculatorModal({isShown, initialValue, setModalValue, s
                 </div>
             </div>
         </div>
-    ) : null;
+    );
 }
